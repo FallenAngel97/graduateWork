@@ -1,0 +1,14 @@
+<h3 class="introLogo">TodoApp</h3>
+<br>
+<div class='someDiv'>
+</div>
+<div class="mainContent">
+    <form method="addTodo">
+        <input type='text' value="Input your notification" class='basicInput'>
+    </form>
+</div>
+<% todosArray.each do |todo| %>
+    <div>
+        <%= todo[:title] %>
+    </div>
+<% end %>

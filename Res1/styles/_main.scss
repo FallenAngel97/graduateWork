@@ -1,0 +1,76 @@
+body:before{
+    position: absolute;
+    content:'';
+    top:-11px;
+    left:-11px;
+    background: repeating-linear-gradient( 
+        135deg,
+        #757868,
+        #757868 100px,
+        #696259 100px, 
+        #696259 200px );
+    height:calc(100% + 22px);
+    width:calc(100% + 22px);
+    filter:blur(10px);
+    z-index: -1;
+}
+body:after
+{
+    top:0;
+    z-index: -1;
+    content:'';
+    position: absolute;
+    background: repeating-linear-gradient(
+        135deg,
+        #636363, 
+        #636363 60px, 
+        transparent 100px, 
+        transparent 180px,
+        #636363 200px);
+    opacity: 0.1;
+    height:100%;
+    width:100%;
+}
+html, body{
+    overflow: hidden;
+    height:100%;
+    width:100%;
+    padding:0;
+    margin:0;
+}
+
+//Simple todo app text
+.introLogo
+{
+    color: #ececec;
+    position: relative;
+    display: inline-block;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-left:36px;
+    font-size: 26px;
+    margin-top:34px;
+    &:after{
+        width:110%;
+        left:50%;
+        bottom:-3px;
+        height:2px;
+        background: #ececec;
+        transform: translateX(-50%);
+        content: '';
+        position: absolute;
+    }
+}
+.basicInput
+{
+    
+}
+form{
+    background: #fff;
+    height:100px;
+    width:100px;
+}
+//Container for the items
+.mainContent{
+    text-align: center;
+    margin-top:130px;
+}
