@@ -1,7 +1,8 @@
 Vagrant.configure("2") do |config|
     config.vm.box = "ogarcia/archlinux-x64"
-    config.vm.network :private_network, ip: "192.168.50.20"
-    config.vm.provision :shell, path: "provision.sh"
-
     config.vm.synced_folder "./", "/srv/http"
+    config.vm.network :private_network, ip: "192.168.50.20"
+    config.vm.provision "file", source: "./vagrant_stuff/userscript.sh", destination: "/home/vagrant/userscript.sh"
+    config.vm.provision "file", source: "./vagrant_stuff/siteObserved.conf", destination: "/home/vagrant/siteObserved.conf"
+    config.vm.provision :shell, path: "./vagrant_stuff/provision.sh"
 end

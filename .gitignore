@@ -1,5 +1,6 @@
 */public/css
-*/.vagrant
-*/.bundle
+*/**/.vagrant
+*/**/.bundle
 */node_modules
 */**/*.log
+*/**/*.pid.lock

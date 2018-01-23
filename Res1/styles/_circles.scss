@@ -1,0 +1,35 @@
+@mixin circleDrop($size)
+{
+    height: $size;
+    width: $size;
+    box-shadow: inset 0px $size/2 $size/2 rgba(255, 255, 255, .05),
+    inset 0px (-$size/2) $size/2 rgba(0, 0, 0, .28),
+    2px 2px 5px rgba(0,0,0,.2);
+    border-radius: $size/2;
+}
+.circle
+{
+    position: absolute;
+}
+#left
+{
+    top:25%;
+    @include circleDrop(100px);
+    transform:translateY(-50%);
+    background: #ab30f3;
+    left: 5%;
+}
+#center
+{
+    @include circleDrop(140px);
+    background: #CD04FF;
+    left:30%;
+    bottom:20%;
+}
+#right
+{
+    @include circleDrop(300px);
+    right: 5%;
+    top:13%;
+    background: #D71EF4;
+}
