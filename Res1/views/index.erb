@@ -8,8 +8,10 @@
         <input type='submit' value='Submit' id='submitButton'>
     </div>
 </form>
-<% todosArray.each do |todo| %>
-    <div>
-        <%= todo[:title] %>
-    </div>
-<% end %>
+<div id='timeTable'>
+    <% todosArray.each do |todo| %>
+        <div>
+            <%= todo[:title] %>
+        </div>
+    <% end %>
+</div>
