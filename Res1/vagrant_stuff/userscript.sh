@@ -8,3 +8,5 @@ cd /vagrant
 bundle
 bundle exec rake db:create
 psql -U angel todo_base < /vagrant/dump.sql
+npm i
+/vagrant/node_modules/gulp production

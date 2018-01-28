@@ -16,8 +16,9 @@ class TodoApp < Sinatra::Base
         output.split(" ")[7]
     end
 
-    get '/addTodo' do
-        SingleTodo.create(:title=>"NewPost")
+    post '/addTodo' do
+        params
+        #SingleTodo.create(:title=>"NewPost")
     end
 
     get '/' do

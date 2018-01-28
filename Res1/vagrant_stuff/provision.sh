@@ -1,6 +1,6 @@
 #!/bin/bash
 pacman -Suy --noconfirm
-pacman -S vim apache postgresql ruby passenger mod_passenger postgresql-libs  --noconfirm
+pacman -S vim apache postgresql ruby passenger mod_passenger postgresql-libs nodejs npm --noconfirm
 #
 # Apache configuration
 #

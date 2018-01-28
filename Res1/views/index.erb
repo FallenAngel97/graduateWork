@@ -1,11 +1,16 @@
 <h3 class="introLogo">TodoApp</h3>
 <br>
-<form class="mainContent" method="addTodo">
+<form class="mainContent" action="addTodo" method="post">
     <div class='row'>
         <div id='inputWrapper'>
-            <input type='text' placeholder="Input your notification" id='basicInput'>
+            <input type='text' name="notificationText" placeholder="Input your notification" id='basicInput'>
         </div>
         <input type='submit' value='Submit' id='submitButton'>
+        <div class='row'>
+            <canvas id='clock'>
+            </canvas>
+            <div id='timeText'>12:40</div>
+        </div>
     </div>
 </form>
 <div id='timeTable'>
