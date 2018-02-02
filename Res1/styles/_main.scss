@@ -130,19 +130,38 @@ $marginSubmit: 15px;
 {
     width:100%;
     display: inline-block;
+    position: relative;
     margin-top: 12px;
 }
 #timeTable
 {
     left: 23%;
     position: absolute;
-    top:333px;
+    top:411px;
     color: #e9e9e9;
 }
-// @media 
-//  (-webkit-min-device-pixel-ratio: 1.25), 
-//  (min-resolution: 120dpi){ 
-//     canvas{
-//         transform: scale(0.8);
-//     }
-// }
+#timeText{
+    font-family: 'MirBold';
+    color: #515151;
+    position: absolute;
+    top: 48%;
+    transform: translateY(-50%);
+    right: 32%;
+    font-size: 20px;
+    background: none;
+    border:none;
+    width:50px;
+}
+#clock
+{
+    position: relative;
+    &:before
+    {
+        position: absolute;
+        top:-1px;
+        width:5px;
+        height:5px;
+        left:-1px;
+        content: '';
+    }
+}

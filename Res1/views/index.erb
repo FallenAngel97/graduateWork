@@ -9,13 +9,13 @@
         <div class='row'>
             <canvas id='clock'>
             </canvas>
-            <div id='timeText'>12:40</div>
+            <input id='timeText' name="timeText" placeholder="12:40">
         </div>
     </div>
 </form>
 <div id='timeTable'>
     <% todosArray.each do |todo| %>
-        <div>
+        <div class='singleTodoItem'>
             <%= todo[:title] %>
         </div>
     <% end %>
