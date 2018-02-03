@@ -8,8 +8,26 @@
     var centerX = clock.width/4;
     var centerY = clock.height/2;
     var radius = 40*window.devicePixelRatio;    
-
-    (function updateTime()
+    var pressedIntoTheInput = false;
+    var stopUpdating = false;
+    document.getElementById('timeText').onfocus = function()
+    {
+        console.log("stop");
+        stopUpdating = true;
+    };
+    document.getElementById('timeText').onkeyup = function()
+    {
+        stopUpdating = pressedIntoTheInput = true;
+    };
+    document.getElementById('timeText').onblur = function()
+    {
+        console.log("opened");
+        if(pressedIntoTheInput!=true){
+            stopUpdating = false;
+            updateTime();
+        }
+    };
+    function updateTime()
     {
 
         context.clearRect(0, 0, clock.width, clock.height);
@@ -68,6 +86,8 @@
             centerY+(radius-8)*Math.sin(1.5*Math.PI+2*Math.PI*minutes/60)
         );
         context.stroke();
-        setTimeout(updateTime, 1000);
-    })();
+        if(stopUpdating!=true)
+            setTimeout(updateTime, 1000);
+    };
+    updateTime();
 })();

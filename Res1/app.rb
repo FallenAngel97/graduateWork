@@ -17,14 +17,23 @@ class TodoApp < Sinatra::Base
     end
 
     post '/addTodo' do
-        params
-        #SingleTodo.create(:title=>"NewPost")
+        SingleTodo.create(
+            :title=>params["notificationText"],
+            :expires_date=>params["timeText"]
+        );
+        redirect '/'
+    end
+
+    post '/removeTodo' do
+        SingleTodo.destroy(params["idTodo"])
+        redirect '/'
     end
 
     get '/' do
         arr = []
         SingleTodo.all.each {|record|
             arr.push({
+                :idTodo=>record.id,
                 :title=>record.title,
                 :expires_date=>record.expires_date
             })
