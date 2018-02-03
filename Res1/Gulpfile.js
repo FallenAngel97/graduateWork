@@ -11,7 +11,7 @@ gulp.task('serve', ['sass', 'uglify'], function() {
     });
 
     gulp.watch("js/*.js", ['uglify']);
-    gulp.watch("styles/*.scss", ['sass']);
+    gulp.watch("styles/**/*.scss", ['sass']);
     gulp.watch("views/*.erb").on('change', browserSync.reload);
 });
 

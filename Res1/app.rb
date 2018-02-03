@@ -24,7 +24,10 @@ class TodoApp < Sinatra::Base
     get '/' do
         arr = []
         SingleTodo.all.each {|record|
-            arr.push({:title=>record.title})
+            arr.push({
+                :title=>record.title,
+                :expires_date=>record.expires_date
+            })
         }
         erb :index, :locals=>{todosArray:arr}
     end

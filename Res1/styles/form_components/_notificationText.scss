@@ -1,0 +1,39 @@
+$size : 13px;
+$marginSubmit: 15px;
+#inputWrapper
+{
+    position: relative;
+    display: inline-block;
+    margin-right: $marginSubmit;
+    &:before
+    {
+        content:'';
+        left:2px;
+        width:$size;
+        height:$size;
+        position: absolute;
+        background: url('/images/pen-15.png');
+        background-size:  auto $size;
+        top:2.2px;
+    }
+    &:after
+    {
+        left:0;
+        content: '';
+        height:1px;
+        bottom: 0px;
+        width:100%;
+        position: absolute;
+        background: #636363;
+    }
+}
+#basicInput
+{
+
+    background:none;
+    border:none;
+    position: relative;
+    font-family: 'Miriad';
+    color:#636363;
+    padding:0 20px;
+}

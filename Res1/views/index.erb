@@ -16,7 +16,9 @@
 <div id='timeTable'>
     <% todosArray.each do |todo| %>
         <div class='singleTodoItem'>
-            <%= todo[:title] %>
+            <span class='timeTodo'><%= todo[:expires_date] %></span>
+            <span class='titleTodo'><%= todo[:title] %></span>
+            <input class='deleteTodo' type='button' value='X'>
         </div>
     <% end %>
 </div>
