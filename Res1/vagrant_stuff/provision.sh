@@ -4,8 +4,8 @@ pacman -S vim apache postgresql ruby passenger mod_passenger postgresql-libs nod
 #
 # Apache configuration
 #
-sudo systemctl enable httpd
-sudo systemctl start httpd
+systemctl enable httpd
+systemctl start httpd
 payload="
 LoadModule passenger_module /usr/lib/httpd/modules/mod_passenger.so
 PassengerRoot /usr/lib/passenger

@@ -1,0 +1,25 @@
+<h3 class="introLogo">TodoApp</h3>
+<br>
+<form class="mainContent" action="addTodo" method="post">
+    <div class='row'>
+        <div id='inputWrapper'>
+            <input type='text' name="notificationText" placeholder="Input your notification" id='basicInput'>
+        </div>
+        <input type='submit' value='Submit' id='submitButton'>
+        <div class='row'>
+            <canvas id='clock'>
+            </canvas>
+            <input autocomplete="off" id='timeText' name="timeText" placeholder="12:40">
+        </div>
+    </div>
+</form>
+<div id='timeTable'>
+    <% todosArray.each do |todo| %>
+        <form action="removeTodo" method="post" class='singleTodoItem'>
+            <input type='hidden' name='idTodo' value="<%= todo[:idTodo] %>">
+            <span class='timeTodo'><%= todo[:expires_date] %></span>
+            <span class='titleTodo'><%= todo[:title] %></span>
+            <input class='deleteTodo' type='submit' value='X'>
+        </form>
+    <% end %>
+</div>

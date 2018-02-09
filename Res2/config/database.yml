@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: todo_base
+  pool: 2
+  username: angel
+  password: angel
+
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: todo_base
+  pool: 2
+  username: angel
+  password: angel
+  

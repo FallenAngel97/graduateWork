@@ -1,0 +1,29 @@
+@import "fonts";
+@import "main";
+@import "circles";
+body:before{
+    position: absolute;
+    content:'';
+    background: linear-gradient(129deg, #8e0dd9,
+      #b407ec 45%,  #8e0dd9 70%, #8e0dd9);
+    height:100%;
+    width:100%;
+    z-index: -1;
+}
+body:after
+{
+    position: absolute;
+    content:'';
+    background: linear-gradient(129deg, #8e0dd9, rgba(#d90d8e,.46));
+    height:100%;
+    top:0;
+    z-index: -1;
+    width:100%;
+}
+html, body{
+    overflow: hidden;
+    height:100%;
+    width:100%;
+    padding:0;
+    margin:0;
+}
