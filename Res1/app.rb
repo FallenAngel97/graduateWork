@@ -13,6 +13,7 @@ class TodoApp < Sinatra::Base
 
     get '/machineInfo' do
         output = %x(free)
+        secondsUptime = Time.now - IO.read('/proc/uptime').split[0].to_f
         output.split(" ")[7]
     end
 

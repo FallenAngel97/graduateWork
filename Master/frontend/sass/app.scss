@@ -1,0 +1,27 @@
+@import "fonts";
+@import "leftPane";
+header
+{
+    background: linear-gradient(to bottom, #274655, #407087);
+    box-shadow: 0 0 8px 3px #407087;
+    height: 43px;
+    h1
+    {
+        color: #e9e9e9;
+        font-family: 'BitterB';
+        font-weight: 100;
+        margin-top: 0;
+        font-size: 16px;
+        padding-top: 12px;
+        padding-left: 37px;
+    }
+}
+body
+{
+    background: #e9e9e9;
+    overflow: hidden;
+    height:100%;
+    width:100%;
+    padding:0;
+    margin:0;
+}

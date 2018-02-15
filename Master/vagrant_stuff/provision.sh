@@ -3,7 +3,7 @@ apt-get update
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
 apt-get install -y apache2 ruby-full build-essential\
         libcurl4-openssl-dev libssl-dev apache2-dev\
-        libapr1-dev libaprutil1-dev dirmngr gnupg\
+        libapr1-dev libaprutil1-dev dirmngr gnupg nmap\
         apt-transport-https ca-certificates virtualbox-guest-utils
 sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger xenial main > /etc/apt/sources.list.d/passenger.list'
 apt-get update
