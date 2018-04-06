@@ -6,12 +6,17 @@
         console.log(xhr.statusText);
     else
     {
-        var ip_array = JSON.parse(xhr.responseText);
-        ip_array.map(function(ip)
+        var machine_array = JSON.parse(xhr.responseText);
+        machine_array.map(function(machine)
         {
-            document.getElementsByTagName('aside')[0].innerHTML+="\
+            var divider = (machine.memory/1000>999)?1000*1000:1000;
+            var units = (machine.memory/1000>999)?"GB":"MB";
+            document.getElementById('machinesDynamic').innerHTML+="\
                 <div class='singleMachine'>\
-                    "+ip+"\
+                    <h2><a href='http://"+machine.ip+"'>"+machine.ip+"</a></h2>\
+                    <h3>"+machine.linuxName+"</h3>\
+                    <span>"+machine.memory/divider+" "+units+" RAM |\
+                    "+machine.cpuModel+"</span>\
                 </div>\
             "
         })
