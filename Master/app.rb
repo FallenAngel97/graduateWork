@@ -35,7 +35,7 @@ class Watcher < Sinatra::Base
         machineInfo.map { |machine| Hash[machine.each_pair.to_a] }.to_json
     end
 
-    get '/' do
+    get '/index' do
         erb :index
     end
 end

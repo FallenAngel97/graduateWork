@@ -28,6 +28,11 @@ class TodoApp < Sinatra::Base
         JSON.generate(machineInfo)
     end
 
+    get '/reboot' do
+        #need some kind of authorization here. Not sure, which one to choose
+        #`sudo reboot`
+    end
+
     post '/addTodo' do
         SingleTodo.create(
             :title=>params["notificationText"],

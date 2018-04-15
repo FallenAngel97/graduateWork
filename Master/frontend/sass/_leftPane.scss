@@ -2,10 +2,13 @@ main
 {
     width:100%;
     height: calc(100% - 43px);
+    display: table;
 }
 aside
 {
     text-align: center;
+    display: table-cell;
+    vertical-align: top;
     width: 250px;
     height: 100%;
     background: #27566d;
@@ -54,11 +57,16 @@ aside
         font-size: 13px;
     }
     background: #20485b;
+    transition: .2s ease-in-out background-color;
     color: #e8e8e8;
     margin-bottom: 5px;
     -moz-box-shadow: inset 3px 2px 4px -3px #000000;
     -webkit-box-shadow:inset 3px 2px 4px -3px #000000;
     box-shadow: inset 3px 2px 4px -3px #000000;
+    &:hover
+    {
+        background-color: #089690;
+    }
 }
 #reload_all img
 {

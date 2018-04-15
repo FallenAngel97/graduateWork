@@ -1,0 +1,61 @@
+#mainArea
+{
+    width: calc(100% - 250px);
+    margin-left:250px;
+    display: table-cell;
+}
+.badge{
+    position: absolute;
+    left: 16px;
+    transform: scale(0.8) translateX(-25%) translateY(-25%);
+    top: 12px;
+    height: 40px;
+}
+#dummyServer{
+    padding: 0 53px;
+    margin: 30px 18px;
+    border-radius: 7px;
+    display: none;
+    transition: .2s ease-in-out background-color;
+    &:hover
+    {
+        background: #ccc;
+    }
+}
+.readyServer
+{
+    display: inline-block !important;
+}
+.serverImage{
+    text-align: center;
+    position: relative;
+}
+.korobka
+{
+    transform: scale(0.8);
+    height: 152px;
+}
+.ip-address
+{
+    margin: 10px auto 0 auto;
+    font-size: 17px;
+    font-family: 'LucidaS';
+    color: #525252;
+    font-weight: 100;
+}
+.status
+{ 
+    text-align: center;
+    img
+    {
+        transform: scale(0.8);
+        height: 27px;
+        vertical-align: middle;
+    }
+    span
+    {
+        color: #337148;
+        font-family: 'BitterB';
+        vertical-align: middle;
+    }
+}

@@ -13,6 +13,10 @@ source ~/.bashrc
 source ~/.profile
 a2enmod rewrite
 a2enmod passenger
+a2enmod status
+a2enmod proxy_http
+a2enmod proxy_balancer
+a2enmod lbmethod_bytraffic
 service apache2 restart
 SUCCESS=`/usr/bin/passenger-config validate-install | tail -1`
 if [[ "$SUCCESS" != *'Everything looks good. :-)'* ]]; then
