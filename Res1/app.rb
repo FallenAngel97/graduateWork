@@ -3,6 +3,7 @@ require "sinatra/reloader"
 require "active_record"
 require "sinatra/activerecord"
 require 'json'
+require 'net/http'
 
 require_relative 'models/singletodo'
 
@@ -12,8 +13,11 @@ class TodoApp < Sinatra::Base
     end
 
     get '/machineInfo' do
+        rawData=Net::HTTP.get(URI.parse('http://localhost/server-status?auto'))
         output = %x(free)
-        secondsUptime = Time.now - IO.read('/proc/uptime').split[0].to_f
+        secondsUptime = rawData.match /ServerUptime: (.*)/
+        requestsPerSecond = rawData.match /ReqPerSec: (.*)/
+        #secondsUptime = Time.now - IO.read('/proc/uptime').split[0].to_f
         linux_name = `cat /etc/*-release | grep PRETTY_NAME`
         cpu_model = `cat /proc/cpuinfo | grep "model name"`.split(":")[1]
         ["\n","(TM)","(R)", "CPU"].each { |symbol|
@@ -21,11 +25,16 @@ class TodoApp < Sinatra::Base
         }
         machineInfo = [
             output.split(" ")[7],
-            secondsUptime,
+            secondsUptime[1],
             linux_name.scan(/\"(.*?)\"/)[0][0],
-            cpu_model[/.*(?=@)/]
+            cpu_model[/.*(?=@)/],
+            requestsPerSecond[1]
                         ]
         JSON.generate(machineInfo)
+    end
+
+    get '/index' do
+        "You're in slave"
     end
 
     get '/reboot' do

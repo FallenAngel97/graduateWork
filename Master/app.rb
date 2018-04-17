@@ -5,7 +5,6 @@ require 'socket'
 require 'json'
 
 class Watcher < Sinatra::Base
-
     $addresses = nil
 
     configure :development do
@@ -22,7 +21,7 @@ class Watcher < Sinatra::Base
         $addresses.reject! { |ip| ip == inner_ip }
         machineInfo = []
         $addresses.each{ |addr|
-            # memory seconds linuxName #cpuModel
+            # memory seconds linuxName cpuModel
             result = JSON.parse(Net::HTTP.get(URI.parse('http://'+addr+'/machineInfo')))
             machineInfo << {
                 "ip"=>addr,

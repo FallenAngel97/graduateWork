@@ -1,0 +1,24 @@
+# Default server configuration
+#
+upstream myapp1 {
+        server 192.168.50.20;
+        server 192.168.50.30;
+}
+server {
+        server_name 127.0.0.1;
+        listen 80;
+        location /index {
+                passenger_enabled on;
+                root /var/www/masterapp;
+                passenger_app_root /var/www/masterapp;
+        }
+        location / {
+                if ($http_referer !~ "^.*index$") {
+                        proxy_pass http://myapp1;
+                }
+        }
+        passenger_enabled on;
+        root /var/www/masterapp;
+        passenger_app_root /var/www/masterapp;
+        passenger_sticky_sessions on;
+}
