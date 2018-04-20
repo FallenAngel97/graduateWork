@@ -5,6 +5,7 @@ apt-get autoremove
 apt-get install build-essential postgresql-server-dev-all ruby-dev vim postgresql-contrib apache2 postgresql passenger libapache2-mod-passenger -y
 curl -sL https://deb.nodesource.com/setup_9.x | bash -
 apt-get install nodejs -y
+echo "ubuntu:ubuntu" | chpasswd
 #
 # Apache configuration
 #

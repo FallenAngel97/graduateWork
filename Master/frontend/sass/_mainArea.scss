@@ -2,6 +2,7 @@
 {
     width: calc(100% - 250px);
     margin-left:250px;
+    position: relative;
     display: table-cell;
 }
 .badge{
@@ -58,4 +59,97 @@
         font-family: 'BitterB';
         vertical-align: middle;
     }
+}
+#dynamicServerInfo
+{
+    position:absolute;
+    background: red;
+    height:80px;
+    width: 200px;
+}
+#curtain
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background: rgba(#2d2d2d, .79);
+    display: none;
+}
+#serverListSSH{
+    background: #c4b5be;
+    width: 80%;
+    box-shadow: 0 0 13px rgba(255,255,255,.9);
+    height:70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25%;
+    transform: translateY(-50%);
+}
+#closeSSH
+{
+    float: right;
+    margin-top: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+#headerSSH
+{
+    display: inline-block;
+    margin-top: 18px;
+    margin-left: 36px;
+    font-size: 18px;
+    font-family: BitterB;
+    color: #2d2d2d;
+}
+#dummySSH
+{
+    background: linear-gradient(to right, rgba(81,37,49,0.2), rgba(242,239,231,0.22) 10%);
+    width: 90%;
+    margin: 14px auto;
+    padding: 8px;
+    display: none;
+    cursor: pointer;
+    background-position: -145px;
+    background-size: calc(100% + 145px);
+    transition: .2s ease-in-out background-position;
+    &:hover{
+        background-position: 0;
+    }
+    &:active {
+        background: rgba(48, 130, 197, .5);
+    }
+}
+.ipAddressSSH
+{
+    display: inline-block;
+    font-family: BitterB;
+}
+.OS_SSH
+{
+    display: inline-block;
+    font-family: Bitter;
+}
+#headerRowSSH{
+    margin-bottom: 30px;
+}
+.sshMachine {
+    display: block !important;
+}
+#terminal {
+    position: absolute;
+    right: 43px;
+    top: 25px;
+    height: 139px;
+    width: 418px;
+    background: #2d2d2d;
+    box-shadow: 2px 2px 5px #000;
+}
+.loginString {
+    color: #dcdcdc;
+    font-family: 'Consolas';
+    margin: 6px 0 0 9px;
 }

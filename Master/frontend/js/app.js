@@ -4,11 +4,14 @@
     xhr.send();
     var singlemachine = document.getElementById('dummyServer');
     var stationsPlace = document.getElementById('mainArea');
+    var sshBox        = document.getElementById('dummySSH');
+    var sshPlace      = document.getElementById('machinesSSH');
+    var machine_array;
     if(xhr.status!=200)
         console.log(xhr.statusText);
     else
     {
-        var machine_array = JSON.parse(xhr.responseText);
+        machine_array = JSON.parse(xhr.responseText);
         machine_array.map(function(machine, index)
         {
             var divider = (machine.memory/1000>999)?1000*1000:1000;
@@ -32,9 +35,22 @@
                 tempServer.getElementsByClassName('badge')[0].src='/images/fedora.png'
 
             stationsPlace.appendChild(tempServer);
+
+            var sshMachine = sshBox.cloneNode(true);
+            sshMachine.setAttribute('machineid', index);
+            sshMachine.className = 'sshMachine';
+            sshMachine.onclick = function()
+            {
+                var machineIndex = this.getAttribute('machineid');
+                document.getElementById('curtain').style.display='none';
+                console.log(machineIndex)
+            }
+            sshMachine.getElementsByClassName('ipAddressSSH')[0].innerHTML = machine.ip;
+            sshMachine.getElementsByClassName('OS_SSH')[0].innerHTML = " | "+machine.linuxName;
+            sshPlace.appendChild(sshMachine);
         });
         [].forEach.call(document.getElementsByClassName('readyServer'), function(el){
-            el.onmouseover = function()
+            el.onmouseover = function(event)
             {
                 highlightLeft(el, 'singleMachine');
             };
@@ -68,5 +84,13 @@
         [].forEach.call(document.getElementsByClassName(target), function(el){
             el.removeAttribute('style');
         })
+    }
+    document.getElementById('remote_connect').onclick = function()
+    {
+        document.getElementById('curtain').style.display='block';
+    }
+    document.getElementById('closeSSH').onclick = function()
+    {
+        document.getElementById('curtain').style.display='none';
     }
 })();

@@ -17,7 +17,6 @@ class TodoApp < Sinatra::Base
         output = %x(free)
         secondsUptime = rawData.match /ServerUptime: (.*)/
         requestsPerSecond = rawData.match /ReqPerSec: (.*)/
-        #secondsUptime = Time.now - IO.read('/proc/uptime').split[0].to_f
         linux_name = `cat /etc/*-release | grep PRETTY_NAME`
         cpu_model = `cat /proc/cpuinfo | grep "model name"`.split(":")[1]
         ["\n","(TM)","(R)", "CPU"].each { |symbol|
@@ -31,10 +30,6 @@ class TodoApp < Sinatra::Base
             requestsPerSecond[1]
                         ]
         JSON.generate(machineInfo)
-    end
-
-    get '/index' do
-        "You're in slave"
     end
 
     get '/reboot' do

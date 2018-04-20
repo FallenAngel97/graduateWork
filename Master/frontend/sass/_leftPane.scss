@@ -68,10 +68,31 @@ aside
         background-color: #089690;
     }
 }
-#reload_all img
+#reload_all, #remote_connect
 {
-    vertical-align: middle;
-    height: 27px;
+    margin: 8px 0;
+    position: relative;
+    cursor: pointer;
+    &:after
+    {
+        position: absolute;
+        bottom: -1px;
+        left: 50%;
+        content: '';
+        height: 1px;
+        transition: .2s ease-in-out width;
+        width:0;
+        transform: translateX(-50%);
+        background: #e8e8e8;
+    }
+    &:hover:after
+    {
+        width:90%;
+    }
+    img{
+        vertical-align: middle;
+        height: 27px;
+    }
 }
 .reloadText
 {
@@ -80,4 +101,9 @@ aside
     font-family: 'LucidaS';
     display: inline-block;
     vertical-align: middle;
+    &:nth-child(2)
+    {
+        font-size: 21px;
+        margin-left: 5px;
+    }
 }

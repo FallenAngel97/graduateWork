@@ -21,9 +21,7 @@ gulp.task('uglify', function(cb)
     return gulp.src("frontend/js/*.js")
             .pipe(sourcemaps.init())
             .pipe(uglify())
-            .pipe(sourcemaps.write('.', {
-                sourceMappingURLPrefix: 'http://localhost:3000/js'
-              }))
+            .pipe(sourcemaps.write())
             .pipe(gulp.dest("public/js"))
             .pipe( browserSync.stream());
 });

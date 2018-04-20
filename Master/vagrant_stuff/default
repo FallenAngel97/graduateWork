@@ -11,9 +11,18 @@ server {
                 passenger_enabled on;
                 root /var/www/masterapp;
                 passenger_app_root /var/www/masterapp;
+                passenger_app_env development;
         }
         location / {
-                if ($http_referer !~ "^.*index$") {
+                set $noredirect N;
+                if ($http_referer ~ "^.*index$") {
+                        set $noredirect Y;
+                }
+                if ($request ~ "^.*typefaces.*$") {
+                        set $noredirect Y;
+                }
+                if ($noredirect != Y)
+                {
                         proxy_pass http://myapp1;
                 }
         }
