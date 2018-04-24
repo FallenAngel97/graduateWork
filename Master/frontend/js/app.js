@@ -1,16 +1,21 @@
 ;(function(){
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET','/enumerate', false);
-    xhr.send();
-    var singlemachine = document.getElementById('dummyServer');
-    var stationsPlace = document.getElementById('mainArea');
-    var sshBox        = document.getElementById('dummySSH');
-    var sshPlace      = document.getElementById('machinesSSH');
+    var singlemachine   = document.getElementById('dummyServer');
+    var stationsPlace   = document.getElementById('mainArea');
+    var sshBox          = document.getElementById('dummySSH');
+    var sshPlace        = document.getElementById('machinesSSH');
+    var reservedSymbols = 0;
+    var current_ip      = "";
+    var login_string    = "";
     var machine_array;
-    if(xhr.status!=200)
-        console.log(xhr.statusText);
-    else
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET','/enumerate', true);
+    xhr.send();
+    xhr.onreadystatechange = function()
     {
+        if(xhr.status != 200 || xhr.readyState != 4){
+            console.log(xhr.response);
+            return
+        }
         machine_array = JSON.parse(xhr.responseText);
         machine_array.map(function(machine, index)
         {
@@ -33,7 +38,9 @@
                 tempServer.getElementsByClassName('badge')[0].src='/images/arch.png'
             if(machine.linuxName.indexOf('Fedora')!==-1)
                 tempServer.getElementsByClassName('badge')[0].src='/images/fedora.png'
-
+            if(machine.linuxName.indexOf('CentOS')!==-1)
+                tempServer.getElementsByClassName('badge')[0].src='/images/CentOS.png'
+            
             stationsPlace.appendChild(tempServer);
 
             var sshMachine = sshBox.cloneNode(true);
@@ -43,7 +50,21 @@
             {
                 var machineIndex = this.getAttribute('machineid');
                 document.getElementById('curtain').style.display='none';
-                console.log(machineIndex)
+                document.getElementById('terminal').style.display='block';
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/connectSSH", true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function()
+                {
+                    if (xhr.readyState == 4 && xhr.status == 200)
+                    {
+                        loginString = ''+xhr.responseText.replace("\n","")+':~$ ';
+                        reservedSymbols = loginString.length;
+                        document.getElementsByTagName('textarea')[0].innerHTML = loginString;
+                    }
+                }
+                current_ip = machine_array[machineIndex].ip;
+                xhr.send('ip=' + encodeURIComponent(current_ip));
             }
             sshMachine.getElementsByClassName('ipAddressSSH')[0].innerHTML = machine.ip;
             sshMachine.getElementsByClassName('OS_SSH')[0].innerHTML = " | "+machine.linuxName;
@@ -92,5 +113,43 @@
     document.getElementById('closeSSH').onclick = function()
     {
         document.getElementById('curtain').style.display='none';
+    }
+    function escapeRegExp(str) {
+        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    }
+    document.getElementsByTagName("textarea")[0].onkeydown = function(e)
+    {
+        var evt = e || window.event;
+        if (evt) {
+            var keyCode = evt.charCode || evt.keyCode;
+            if(this.selectionStart<reservedSymbols)
+            {
+                this.selectionStart = this.value.length + 1;
+            }
+            if ((keyCode === 8 && this.value.length <= reservedSymbols)) {
+                if (evt.preventDefault) {
+                    evt.preventDefault();
+                } else {
+                    evt.returnValue = false;
+                }
+            }
+            if(keyCode == 13)
+            {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/sshExecute", true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function()
+                {
+                    if (xhr.readyState != 4 || xhr.status != 200)
+                        return;
+                    document.getElementsByTagName('textarea')[0].value +=""+xhr.responseText+loginString;
+                    reservedSymbols = document.getElementsByTagName('textarea')[0].value.length;
+                    document.getElementsByTagName('textarea')[0].scrollTop = document.getElementsByTagName('textarea')[0].scrollHeight;
+                }
+                var regex = new RegExp(escapeRegExp(loginString)+"(.*)$");
+                var command = document.getElementsByTagName('textarea')[0].value.match(regex);
+                xhr.send('ip=' + encodeURIComponent(current_ip)+"&command="+command[command.length-1]);
+            }
+        }
     }
 })();

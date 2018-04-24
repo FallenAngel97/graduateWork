@@ -1,0 +1,12 @@
+[Unit]
+Description=Simple server response
+After=network.target
+
+[Service]
+Type=simple
+User=vagrant
+ExecStart=/bin/bash -lc "/home/vagrant/.rvm/bin/rvmsudo rackup /vagrant/config.ru -p 80 --host 0.0.0.0"
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

@@ -36,9 +36,34 @@ class Watcher < Sinatra::Base
         machineInfo.map { |machine| Hash[machine.each_pair.to_a] }.to_json
     end
 
-    get '/getSSH' do
-        Net::SSH.start('192.168.50.30', 'ubuntu', :password => "ubuntu") do |ssh|
+    post '/connectSSH' do
+        ipAddress = params[:ip]
+        case ipAddress
+        when "192.168.50.30"
+            user="ubuntu"
+            pass="ubuntu"
+        when "192.168.50.20" , "192.168.50.15"
+            user="vagrant"
+            pass="vagrant"
+        end
+        Net::SSH.start(ipAddress, user, :password => pass) do |ssh|
             output = ssh.exec!("hostname")
+            return user+"@"+output
+        end
+    end
+
+    post '/sshExecute' do
+        ipAddress = params[:ip]
+        case ipAddress
+        when "192.168.50.30"
+            user="ubuntu"
+            pass="ubuntu"
+        when "192.168.50.20", "192.168.50.15"
+            user="vagrant"
+            pass="vagrant"
+        end
+        Net::SSH.start(ipAddress, user, :password => pass) do |ssh|
+            output = ssh.exec!(params[:command])
             return output
         end
     end
