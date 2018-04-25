@@ -14,5 +14,10 @@ firewall-cmd --zone=public --add-port=http/tcp
 firewall-cmd --zone=public --add-port=http/tcp --permanent
 cp /home/vagrant/rubyserver.service /etc/systemd/system/rubyserver.service
 systemctl daemon-reload
+mv /home/vagrant/.udev-mount-restart-services.sh /root/.udev-mount-restart-services.sh
+mv /home/vagrant/50-vagrant-mount.rules /etc/udev/rules.d/50-vagrant-mount.rules
+#hack for enabling service after vagrant mounting.
+sleep 5
 systemctl start rubyserver.service
 systemctl enable rubyserver.service
+systemctl restart rubyserver.service

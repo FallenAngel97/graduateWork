@@ -1,0 +1,1 @@
+SUBSYSTEM=="bdi",ACTION=="add",RUN+="/bin/bash /root/.udev-mount-restart-services.sh"

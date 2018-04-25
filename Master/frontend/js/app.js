@@ -51,6 +51,7 @@
                 var machineIndex = this.getAttribute('machineid');
                 document.getElementById('curtain').style.display='none';
                 document.getElementById('terminal').style.display='block';
+                document.getElementById('sshIPTerminal').innerHTML = machine_array[machineIndex].ip;
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/connectSSH", true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -151,5 +152,23 @@
                 xhr.send('ip=' + encodeURIComponent(current_ip)+"&command="+command[command.length-1]);
             }
         }
+    }
+    document.getElementById('closeSshWindow').onclick = function()
+    {
+        document.getElementById('terminal').style.display='none';
+    }
+    window.addEventListener('mouseup', mouseUp, false);
+    document.getElementById('moveSshWindow').addEventListener('mousedown', mouseDown, false);
+    function mouseUp()
+    {
+        window.removeEventListener('mousemove', divMove, true);
+    }
+    function divMove(e){
+        var div = document.getElementById('terminal');
+        div.style.top = e.clientY - 90 + 'px';
+        div.style.left = e.clientX - 418/2 - 30/2 - 10 + 'px';
+    }​
+    function mouseDown(e){
+        window.addEventListener('mousemove', divMove, true);
     }
 })();
