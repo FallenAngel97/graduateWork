@@ -47,6 +47,8 @@ aside
     }
     h3
     {
+        z-index: 1;
+        position: relative;
         font-weight: 100;
         margin: 0 auto;
         font-family: 'Cambria Regular';
@@ -63,10 +65,21 @@ aside
     -moz-box-shadow: inset 3px 2px 4px -3px #000000;
     -webkit-box-shadow:inset 3px 2px 4px -3px #000000;
     box-shadow: inset 3px 2px 4px -3px #000000;
+    position: relative;
     &:hover
     {
         background-color: #089690;
     }
+}
+.offlineMachine{
+    background: #691f05;
+    &:hover{
+        background-color: #de4a16;
+    }
+}
+#reload_all {
+    //need help to implement reload
+    display: none;
 }
 #reload_all, #remote_connect
 {
@@ -106,4 +119,12 @@ aside
         font-size: 21px;
         margin-left: 5px;
     }
+}
+.afk {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    font-size: 50px;
+    color: #6f6f6f;
 }

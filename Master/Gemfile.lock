@@ -5,7 +5,6 @@ GEM
     multi_json (1.13.1)
     mustermann (1.0.2)
     net-ssh (4.2.0)
-    puma (3.11.3)
     rack (2.0.4)
     rack-protection (2.0.1)
       rack
@@ -28,7 +27,6 @@ PLATFORMS
 
 DEPENDENCIES
   net-ssh
-  puma
   sinatra (~> 2.0.1)
   sinatra-contrib (~> 2.0.0)
 

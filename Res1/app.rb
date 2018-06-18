@@ -22,11 +22,13 @@ class TodoApp < Sinatra::Base
         ["\n","(TM)","(R)", "CPU"].each { |symbol|
             cpu_model.gsub!(symbol,"") # replacing unnecessary info
         }
+        machine_id = `sudo cat /sys/class/dmi/id/product_uuid`
         machineInfo = [
             output.split(" ")[7],
             secondsUptime[1],
             linux_name.scan(/\"(.*?)\"/)[0][0],
             cpu_model[/.*(?=@)/],
+            machine_id,
             requestsPerSecond[1]
                         ]
         JSON.generate(machineInfo)

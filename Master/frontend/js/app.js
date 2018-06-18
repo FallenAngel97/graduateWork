@@ -12,15 +12,18 @@
     xhr.send();
     xhr.onreadystatechange = function()
     {
-        if(xhr.status != 200 || xhr.readyState != 4){
-            console.log(xhr.response);
-            return
+        if(xhr.status != 200 || xhr.readyState != 4)
+        {
+            handleErrors(xhr);
+            return;
         }
+        
         machine_array = JSON.parse(xhr.responseText);
         machine_array.map(function(machine, index)
         {
             var divider = (machine.memory/1000>999)?1000*1000:1000;
             var units = (machine.memory/1000>999)?"GB":"MB";
+            // offlien color: #691f05
             document.getElementById('machinesDynamic').innerHTML+="\
                 <div machineid="+index+" class='singleMachine'>\
                     <h2><a target='_blank' href='http://"+machine.ip+"'>"+machine.ip+"</a></h2>\
@@ -29,6 +32,25 @@
                     "+machine.cpuModel+"</span>\
                 </div>\
             ";
+            if (typeof(Storage) !== "undefined")
+            {
+                var currentdate = new Date(); 
+                var datetime = "From " + currentdate.getDate() + "/"
+                    + (currentdate.getMonth()+1)  + "/" 
+                    + currentdate.getFullYear() + " @ "  
+                    + currentdate.getHours() + ":"  
+                    + currentdate.getMinutes() + ":" 
+                    + currentdate.getSeconds();
+                var machine_saved_state = {
+                    last_time: datetime,
+                    id: machine.machine_id,
+                    OS: machine.linuxName,
+                    RAM: machine.memory/divider+" "+units,
+                    CPU: machine.cpuModel,
+                    ip: machine.ip
+                }
+                localStorage.setItem("machine"+machine.machine_id, JSON.stringify(machine_saved_state));
+            }
             var tempServer = singlemachine.cloneNode(true);
             tempServer.setAttribute('machineid', index);
             tempServer.className='readyServer';
@@ -92,6 +114,36 @@
                 disableHighlight(el, 'readyServer');
             };
         });
+        loop1:
+        for(var machineOfflineIndex = 0; machineOfflineIndex < localStorage.length; machineOfflineIndex++)
+        {
+            try{
+                var offlineMachine = localStorage.getItem(localStorage.key(machineOfflineIndex));
+                offlineMachine = JSON.parse(offlineMachine);
+                machine_array.map(function(machine)
+                {
+                    if(machine.ip==offlineMachine.ip)
+                    {
+                        return loop1;
+                    }
+                })
+                var divider = (offlineMachine.RAM/1000>999)?1000*1000:1000;
+                var units = (offlineMachine.RAM/1000>999)?"GB":"MB";
+                document.getElementById('machinesDynamic').innerHTML+="\
+                <div machineid="+machine_array.length+" class='singleMachine offlineMachine'>\
+                    <div class='afk'>OFFLINE</div>\
+                    <h2><a target='_blank' href='http://"+offlineMachine.ip+"'>"+offlineMachine.ip+"</a></h2>\
+                    <h3>"+offlineMachine.OS+"</h3>\
+                    <span>"+offlineMachine.RAM/divider+" "+units+" RAM |\
+                    "+offlineMachine.CPU+"</span>\
+                </div>\
+                ";
+                
+            }
+            catch(e){
+                console.log(e);
+            }
+        }
     }
     function highlightLeft(element, target)
     {
@@ -110,6 +162,10 @@
     document.getElementById('remote_connect').onclick = function()
     {
         document.getElementById('curtain').style.display='block';
+        document.getElementById('terminal').style.display = 'none';
+        reservedSymbols = 0;
+        current_ip      = "";
+        login_string    = "";
     }
     document.getElementById('closeSSH').onclick = function()
     {
@@ -156,6 +212,9 @@
     document.getElementById('closeSshWindow').onclick = function()
     {
         document.getElementById('terminal').style.display='none';
+        reservedSymbols = 0;
+        current_ip      = "";
+        login_string    = "";
     }
     window.addEventListener('mouseup', mouseUp, false);
     document.getElementById('moveSshWindow').addEventListener('mousedown', mouseDown, false);
@@ -167,8 +226,14 @@
         var div = document.getElementById('terminal');
         div.style.top = e.clientY - 90 + 'px';
         div.style.left = e.clientX - 418/2 - 30/2 - 10 + 'px';
-    }​
+    }
     function mouseDown(e){
         window.addEventListener('mousemove', divMove, true);
     }
+    function handleErrors(xhr)
+    {
+        if(xhr.status>300)
+            document.getElementById('mainArea').innerHTML = "<div id='errorMessage'>"+xhr.responseText+"</div>";
+    }
+
 })();

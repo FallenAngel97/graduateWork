@@ -30,7 +30,8 @@ class Watcher < Sinatra::Base
                 "memory"=>result[0],
                 "seconds"=>result[1],
                 "linuxName"=>result[2],
-                "cpuModel"=>result[3]
+                "cpuModel"=>result[3],
+                "machine_id"=>result[4]
             }
         }
         machineInfo.map { |machine| Hash[machine.each_pair.to_a] }.to_json
@@ -63,9 +64,16 @@ class Watcher < Sinatra::Base
             pass="vagrant"
         end
         Net::SSH.start(ipAddress, user, :password => pass) do |ssh|
+            if ['vim', 'nano', 'vi'].include? params[:command]
+                return "Not allowed to use STDIN commands!\n"
+            end
             output = ssh.exec!(params[:command])
             return output
         end
+    end
+
+    post '/reboot' do
+        
     end
 
     get '/index' do
@@ -76,4 +84,7 @@ class Watcher < Sinatra::Base
         "development sinatr"
     end
 
+    error 500..520 do
+        "Error happened. Please, stand by. We are fixing this"
+    end
 end

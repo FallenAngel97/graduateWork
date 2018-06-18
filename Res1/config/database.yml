@@ -5,7 +5,7 @@ development:
   pool: 2
   username: angel
   password: angel
-
+  host: 192.168.50.15
 
 production:
   adapter: postgresql
@@ -14,4 +14,5 @@ production:
   pool: 2
   username: angel
   password: angel
+  host: 192.168.50.15
   
